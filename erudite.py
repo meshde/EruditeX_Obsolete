@@ -31,7 +31,7 @@ class Person(object):
 		return 'MALE'
 
 
-class PTRANS(object):
+class ATRANS(object):
 	def __init__(self,verb,context):
 		self.verb = verb.text
 		self.doer = Interpres.getEntity([z for z in verb.children if z.dep_ == 'nsubj'][0]).__dict__
@@ -64,8 +64,8 @@ class Interpres(object):
 			sys.exit(0)
 	@staticmethod
 	def getConcept(concept,verb,context):
-		if concept == 'PTRANS':
-			return PTRANS(verb,context)
+		if concept == 'ATRANS':
+			return ATRANS(verb,context)
 	@staticmethod
 	def getEntity(noun):
 		try:
