@@ -31,12 +31,31 @@ class Person(object):
 		return 'MALE'
 
 
-class ATRANS(object):
+class TRANS(object):
 	def __init__(self,verb,context):
-		self.verb = verb.text
+		self.verb = verb
+		self.context = context
 		self.doer = Interpres.getEntity([z for z in verb.children if z.dep_ == 'nsubj'][0]).__dict__
-		self.receiver = Interpres.getEntity([z for z in verb.children if z.dep_ == 'dobj' and z.ent_type_ == 'PERSON'][0]).__dict__
+class ATRANS(TRANS):
+	def __init__(self,verb,context):
+		super().__init__(verb,context)
+		self.receiver = self.get_to()
 		self.object = Interpres.wsd(context,[z for z in verb.children if z.dep_ == 'dobj' and z.ent_type_ != 'PERSON'][0],'lesk')
+	def get_from(self):
+		#################### PLEASE CHECK #####################################
+		return
+	def get_to(self):
+		for child in self.verb.children:
+			if child.text == 'to':
+				try:
+					grandchild = [z for z in child.children if z.ent_type_ == 'PERSON'][0]
+					return Interpres.getEntity(grandchild).__dict__
+				except:
+					pass
+			if child.dep_ == 'dobj' and child.ent_type_ == 'PERSON':
+				return Interpres.getEntity(child).__dict__
+		sys.stderr.write(" ERROR: No Person Object found as Receipient!")
+		sys.exit(0)
 
 
 class Interpres(object):

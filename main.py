@@ -5,7 +5,7 @@ from erudite import Interpres
 
 nlp = spacy.load('en')
 mid = time.time()
-sent = 'John gave Mary a book'
+sent = 'John gave a book to Mary'
 
 doc = nlp(sent)
 print(Interpres.translate(doc).__dict__)
