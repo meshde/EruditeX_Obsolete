@@ -13,7 +13,7 @@ langcodes==1.4.0
 marisa-trie==0.7.4
 msgpack-python==0.4.8
 murmurhash==0.26.4
-nltk==3.2.4
+nltk==3.4.5
 numpy==1.13.0
 ordered-set==2.0.2
 pathlib==1.0.1
